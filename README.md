@@ -2,7 +2,7 @@
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/RafaelCecyn/workshop-spring-boot-mongodb/blob/main/LICENSE)
 
 # Sobre o projeto
-Este projeto é uma aplicação backend desenvolvida durante o curso (Java COMPLETO Programação Orientada a Objetos + Projetos) que consiste num web services com operações de CRUD - (Create, Retrieve, Update, Delete) para as entidades. Os dados são inseridos automaticamente no banco de dados de teste (H2) ou por meio de requisições no banco de dados Postgresql. 
+Este projeto é uma aplicação backend desenvolvida durante o curso (Java COMPLETO Programação Orientada a Objetos + Projetos) que consiste num web services com operações de CRUD para um sistema de postagem com comentários. Os dados podem ser inseridos automaticamente no banco de dados MongoDB ou podem ser inseridos via requisições.
 
 ## Modelo de domínio
 ![Modelo Conceitual](https://github.com/RafaelCecyn/workshop-springboot3-jpa/blob/main/assets/Screenshot%20from%202024-01-24%2021-04-27.png)
