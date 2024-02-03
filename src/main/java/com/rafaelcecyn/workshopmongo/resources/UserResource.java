@@ -21,6 +21,10 @@ import com.rafaelcecyn.workshopmongo.domain.User;
 import com.rafaelcecyn.workshopmongo.dto.UserDTO;
 import com.rafaelcecyn.workshopmongo.services.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
@@ -28,6 +32,8 @@ public class UserResource {
 	@Autowired
 	private UserService service;
 
+	@Operation(description = "Busca todos os usuários")
+	@ApiResponse(responseCode = "200", description = "Retorna todos os usuários")
 	@GetMapping
 	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> list = service.findall();
@@ -35,12 +41,19 @@ public class UserResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
+	@Operation(description = "Busca o ususário por id")
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "Retorna o usuário por id"),
+			@ApiResponse(responseCode = "404", description = "Erro ao retornar o usuário")
+	})
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
 		User obj = service.findById(id);
 		return ResponseEntity.ok().body(new UserDTO(obj));
 	}
 	
+	@Operation(description = "Insere um novo usuário")
+	@ApiResponse(responseCode = "200", description = "Registra o novo usuário")
 	@PostMapping
 	public ResponseEntity<Void> insert(@RequestBody UserDTO objDTO) {
 		User obj = service.fromDTO(objDTO); // Converte para User de UserDTO
@@ -49,12 +62,19 @@ public class UserResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@Operation(description = "Delete um usuário por id")
+	@ApiResponse(responseCode = "200", description = "apaga um usuário por id")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@Operation(description = "Atualiza o ususário por id")
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "Atualiza o usuário por id"),
+			@ApiResponse(responseCode = "404", description = "Erro ao atualizar o usuário")
+	})
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@RequestBody UserDTO objDTO,@PathVariable String id) {
 		User obj = service.fromDTO(objDTO); // Converte para User de UserDTO
@@ -63,6 +83,9 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+
+	@Operation(description = "Busca o post de um usuario por id")
+	@ApiResponse(responseCode = "200", description = "Retorna o post de um usuario por id")
 	@GetMapping(value = "/{id}/posts")
 	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
 		User obj = service.findById(id);

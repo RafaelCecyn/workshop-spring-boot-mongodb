@@ -15,6 +15,10 @@ import com.rafaelcecyn.workshopmongo.domain.Post;
 import com.rafaelcecyn.workshopmongo.resources.util.URL;
 import com.rafaelcecyn.workshopmongo.services.PostService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping(value = "/posts")
 public class PostResource {
@@ -22,12 +26,19 @@ public class PostResource {
 	@Autowired
 	private PostService service;
 	
+	@Operation(description = "Busca o post por id")
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "Retorna o post por id"),
+			@ApiResponse(responseCode = "404", description = "Erro ao retornar o post")
+	})
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Post> findById(@PathVariable String id) {
 		Post obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@Operation(description = "Busca um caracter contido no titulo do post")
+	@ApiResponse(responseCode = "200", description = "Retorna um caracter contido no titulo do post")
 	@GetMapping(value = "/titlesearch")
 	public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
 		// tipo de requisição
@@ -37,6 +48,9 @@ public class PostResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@Operation(description = "Busca um caracter contido no titulo, corpo ou comentário,"
+			+ " data mínima e data máxima do post")
+	@ApiResponse(responseCode = "200", description = "Retorna um caracter contido no titulo, corpo ou comentário, data mínima e data máxima do post")
 	@GetMapping(value="/fullsearch")
  	public ResponseEntity<List<Post>> fullSearch(
  			@RequestParam(value="text", defaultValue="") String text,
