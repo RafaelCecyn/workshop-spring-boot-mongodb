@@ -31,6 +31,9 @@ Pré-requisitos: Java 17, MongoDB
 # clonar repositório
 git clone https://github.com/RafaelCecyn/workshop-spring-boot-mongodb
 
+# inicializar o MongoDB
+mongod ou mongosh (Ubuntu)
+
 # entrar na pasta do projeto back end
 cd src/com.rafaelcecyn.workshopmongo
 
